@@ -14,45 +14,39 @@ void move(char direcao){
     int proximox = heroi.x;
     int proximoy = heroi.y;
 
+     switch (direcao) {
+        case 'a': proximoy--; break;
+        case 'w': proximox--; break;
+        case 's': proximox++; break;
+        case 'd': proximoy++; break;
+        default: return;
+    }
 
+    if (proximox < 0 || proximox >= m.linhas) return;
+    if (proximoy < 0 || proximoy >= m.colunas) return;
+
+    if (m.matriz[proximox][proximoy] != '.') return;
+
+    m.matriz[proximox][proximoy] = '@';
     m.matriz[heroi.x][heroi.y] = '.';
-    switch (direcao)
-    {
-        case 'a':{
-            proximoy--;
-            break;
-        }
-        case 'w':{
-            proximox--;
-            break;
-        }
-        case 's':{
-            proximox++;
-            break;
-        }
-        case 'd':{
-            proximoy++;
-            break;
-        }
-        default:{
-            return;
-        }
-}
+    heroi.x = proximox;
+    heroi.y = proximoy;
 
 }
+    
 
 int main(void){
-
+    identifica_mapa(&m);
     encontra_mapa(&m, &heroi, '@');
+    m.matriz[heroi.x][heroi.y] = '.';
     do
-        {
-        identifica_mapa(&m);
+    {
+        imprime_mapa(&m);
         char comando;
-        scanf("%c", &comando);
+        scanf(" %c", &comando);
         move(comando);
-
-            imprime_mapa(&m);
     } while (!acabou());
+
     libera_mapa(&m);
     return 0;
 }

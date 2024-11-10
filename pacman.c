@@ -1,21 +1,21 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "pacman.h"
+struct mapa m;
 
-char** mapa;
-int linhas, colunas;
 
 void libera_mapa(){
-    for(int i = 0; i < linhas; i++){
-        free(mapa[i]);
+    for(int i = 0; i < m.linhas; i++){
+        free(m.matriz[i]);
     }   
-    free(mapa);
+    free(m.matriz);
 }
 
 
 void gera_mapa(){
-    mapa = malloc(sizeof(char*) * linhas);
-    for(int i = 0; i < linhas; i++){
-        mapa[i] = malloc(sizeof(char) * (colunas + 1)); 
+    m.matriz = malloc(sizeof(char*) * m.linhas);
+    for(int i = 0; i < m.linhas; i++){
+        m.matriz[i] = malloc(sizeof(char) * (m.colunas + 1)); 
     }
 }
 void identifica_mapa(){
@@ -25,11 +25,11 @@ void identifica_mapa(){
         exit(1);
     }
     
-    fscanf(f, "%d %d", &linhas, &colunas);
+    fscanf(f, "%d %d", &m.linhas, &m.colunas);
     gera_mapa();
 
-    for (int i = 0; i < linhas; i++){
-        fscanf(f, "%s", mapa[i]);
+    for (int i = 0; i < m.linhas; i++){
+        fscanf(f, "%s", m.matriz[i]);
     }
     fclose(f);
 }
@@ -37,9 +37,9 @@ void identifica_mapa(){
 void imprime_mapa(){
         
    
-    for(int i = 0; i < linhas; i++){
-        for (int j = 0; j < colunas; j++){
-            printf("%c", mapa[i][j]);
+    for(int i = 0; i < m.linhas; i++){
+        for (int j = 0; j < m.colunas; j++){
+            printf("%c", m.matriz[i][j]);
         }
         printf("\n");
     }
@@ -52,9 +52,9 @@ int acabou(){
 void move(char direcao){
     int x, y;
 
-    for (int i = 0; i < linhas; i++){
-        for(int j = 0; j < colunas; j++){
-            if(mapa[i][j] == '@'){
+    for (int i = 0; i < m.linhas; i++){
+        for(int j = 0; j < m.colunas; j++){
+            if(m.matriz[i][j] == '@'){
                 x = i;
                 y = j;
                 break;
@@ -65,23 +65,23 @@ void move(char direcao){
     switch (direcao)
     {
         case 'a':{
-            mapa[x][y-1] = '@';
+            m.matriz[x][y-1] = '@';
             break;
         }
         case 'w':{
-            mapa[x-1][y] = '@';
+            m.matriz[x-1][y] = '@';
             break;
         }
         case 's':{
-            mapa[x+1][y] = '@';
+            m.matriz[x+1][y] = '@';
             break;
         }
         case 'd':{
-            mapa[x][y+1] = '@';
+            m.matriz[x][y+1] = '@';
             break;
         }
 }
-    mapa[x][y] = '.';
+    m.matriz[x][y] = '.';
 }
 
 int main(void){

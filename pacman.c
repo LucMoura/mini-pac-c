@@ -3,6 +3,7 @@
 #include "pacman.h"
 #include "funcoes.h"
 MAPA m;
+POSICAO heroi;
 
 
 int acabou(){
@@ -10,42 +11,39 @@ int acabou(){
 }
 
 void move(char direcao){
-    int x, y;
+    int proximox = heroi.x;
+    int proximoy = heroi.y;
 
-    for (int i = 0; i < m.linhas; i++){
-        for(int j = 0; j < m.colunas; j++){
-            if(m.matriz[i][j] == '@'){
-                x = i;
-                y = j;
-                break;
-            }
-        }
-    }
 
+    m.matriz[heroi.x][heroi.y] = '.';
     switch (direcao)
     {
         case 'a':{
-            m.matriz[x][y-1] = '@';
+            proximoy--;
             break;
         }
         case 'w':{
-            m.matriz[x-1][y] = '@';
+            proximox--;
             break;
         }
         case 's':{
-            m.matriz[x+1][y] = '@';
+            proximox++;
             break;
         }
         case 'd':{
-            m.matriz[x][y+1] = '@';
+            proximoy++;
             break;
         }
+        default:{
+            return;
+        }
 }
-    m.matriz[x][y] = '.';
+
 }
 
 int main(void){
-    identifica_mapa(&m);
+
+    encontra_mapa(&m, &heroi, '@');
     do
         {
         identifica_mapa(&m);

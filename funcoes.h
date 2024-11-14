@@ -1,5 +1,6 @@
 #include "pacman.h"
 #define HEROI '@'
+#define FANTASMA 'F'
 #define VAZIO '.'
 #define PAREDE_LATERAL '|'
 #define PAREDE_HORIZONTAL '-'

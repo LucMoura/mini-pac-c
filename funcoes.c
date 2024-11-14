@@ -10,12 +10,29 @@ void encontra_mapa(MAPA* m, POSICAO* p,char c){
             if(m->matriz[i][j] == c){
                 p->x = i;
                 p->y = j;
-                break;
+                return;
             }
         }
     }
 }
 
+void andando_mapa(MAPA* m, int xorigem, int yorigem, int xdestino, int ydestino){
+        char personagem = m->matriz[xorigem][yorigem];
+        m->matriz[xdestino][ydestino] = personagem;
+        m->matriz[xorigem][yorigem] = VAZIO;
+}
+
+
+int pode_andar(MAPA* m, int x, int y){
+    if (x >= m->linhas || x < 0) return 0;
+    if (y >= m->colunas || y < 0) return 0;
+    return 1;
+}
+
+int ta_vazia(MAPA*m, int x, int y){
+    return m->matriz[x][y] == VAZIO;
+
+}
 
 void libera_mapa(MAPA* m){
     for(int i = 0; i < m->linhas; i++){

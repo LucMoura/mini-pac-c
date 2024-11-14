@@ -15,20 +15,17 @@ void move(char direcao){
     int proximoy = heroi.y;
 
      switch (direcao) {
-        case 'a': proximoy--; break;
-        case 'w': proximox--; break;
-        case 's': proximox++; break;
-        case 'd': proximoy++; break;
+        case ESQUERDA: proximoy--; break;
+        case CIMA: proximox--; break;
+        case BAIXO: proximox++; break;
+        case DIREITA: proximoy++; break;
         default: return;
     }
 
-    if (proximox < 0 || proximox >= m.linhas) return;
-    if (proximoy < 0 || proximoy >= m.colunas) return;
+    if (!pode_andar(&m, proximox, proximoy)) return;
+    if (!ta_vazia(&m,proximox,proximoy)) return;
 
-    if (m.matriz[proximox][proximoy] != '.') return;
-
-    m.matriz[proximox][proximoy] = '@';
-    m.matriz[heroi.x][heroi.y] = '.';
+    andando_mapa(&m, heroi.x, heroi.y, proximox, proximoy);
     heroi.x = proximox;
     heroi.y = proximoy;
 
@@ -37,8 +34,7 @@ void move(char direcao){
 
 int main(void){
     identifica_mapa(&m);
-    encontra_mapa(&m, &heroi, '@');
-    m.matriz[heroi.x][heroi.y] = '.';
+    encontra_mapa(&m, &heroi, HEROI);
     do
     {
         imprime_mapa(&m);

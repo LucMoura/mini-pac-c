@@ -14,7 +14,7 @@ struct posicao{
     int x, y;
 };
 typedef struct posicao POSICAO;
-
+void fantasma();
 void move(char direcao);
 int acabou();
 #endif

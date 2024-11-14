@@ -6,7 +6,7 @@ MAPA m;
 POSICAO heroi;
 
 void fantasma(){
-    for (int i = 0; i <m.linhas; i++){
+    for (int i = 0; i < m.linhas; i++){
         for(int j = 0; j < m.colunas; j++){
             if(m.matriz[i][j] == FANTASMA){
                 if(pode_andar(&m, i, j+1)){
@@ -53,6 +53,7 @@ int main(void){
         char comando;
         scanf(" %c", &comando);
         move(comando);
+        fantasma();
     } while (!acabou());
 
     libera_mapa(&m);

@@ -12,4 +12,5 @@ void identifica_mapa(MAPA* m);
 void encontra_mapa(MAPA* m, POSICAO* p,char c);
 int pode_andar(MAPA*m, int x, int y);
 int ta_vazia(MAPA*m, int x, int y);
+void copia_mapa(MAPA* destino, MAPA* origem);
 void andando_mapa(MAPA* m, int xorigem, int yorigem, int xdestino, int ydestino);

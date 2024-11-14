@@ -9,16 +9,21 @@ POSICAO heroi;
 
 
 void fantasma(){
+    MAPA copia;
+
+    copia_mapa(&copia, &m);
+
     for (int i = 0; i < m.linhas; i++){
         for(int j = 0; j < m.colunas; j++){
-            if(m.matriz[i][j] == FANTASMA){
-                if(pode_andar(&m, i, j+1)){
+            if(copia.matriz[i][j] == FANTASMA){
+                if(pode_andar(&m, i, j+1) && ta_vazia(&m, i, j+1)){
                     andando_mapa(&m,i, j, i, j + 1);
                     return;
                 }
             }
         }
     }
+    libera_mapa(&copia);
 }
 
 

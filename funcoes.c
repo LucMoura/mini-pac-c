@@ -1,8 +1,20 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "pacman.h"
 #include "funcoes.h"
 MAPA m;
+
+void copia_mapa(MAPA* destino, MAPA* origem){
+    destino->linhas = origem->linhas;
+    destino->colunas = origem->colunas;
+
+    gera_mapa(destino);
+    for(int i = 0; i < origem->linhas; i++){
+        strcpy(destino->matriz[i], origem->matriz[i]);
+    }
+}
+
 
 void encontra_mapa(MAPA* m, POSICAO* p,char c){
     for (int i = 0; i < m->linhas; i++){

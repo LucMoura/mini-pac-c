@@ -9,6 +9,17 @@ struct mapa{
     int linhas, colunas;
 };
 
+typedef enum { FACIL, MEDIO, DIFICIL } DIFICULDADE;
+
+
+typedef struct 
+{
+    int x, y;
+    int custo;
+    int heroi_dsitancia;
+    int total;
+} NO;
+
 typedef struct mapa MAPA;
 struct posicao{
     int x, y;

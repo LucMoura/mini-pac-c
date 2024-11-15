@@ -16,13 +16,18 @@ void copia_mapa(MAPA* destino, MAPA* origem){
 }
 
 
-void encontra_mapa(MAPA* m, POSICAO* p,char c){
+int movimentacao(MAPA* m, int x, int y){
+    return
+    pode_andar(m, x, y) && ta_vazia(m, x, y);
+}
+
+int encontra_mapa(MAPA* m, POSICAO* p,char c){
     for (int i = 0; i < m->linhas; i++){
         for(int j = 0; j < m->colunas; j++){
             if(m->matriz[i][j] == c){
                 p->x = i;
                 p->y = j;
-                return;
+                return 1;
             }
         }
     }

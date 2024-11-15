@@ -17,7 +17,7 @@ int direcao_fantasma(int xatual, int yatual, int* xdestino, int* ydestino){
     for(int i = 0; i < 11; i++){
         int posicao = rand() %4;
 
-        if(pode_andar(&m, opcoes[posicao][0], opcoes[posicao][1]) && ta_vazia(&m, opcoes[posicao][0], opcoes[posicao][1])){
+        if(movimentacao(&m, opcoes[posicao][0],opcoes[posicao][1])){
             *xdestino = opcoes[posicao][0];
             *ydestino = opcoes[posicao][1];
             return 1;
@@ -40,7 +40,7 @@ void fantasma(){
                 if(encontrou){
                     andando_mapa(&m, i, j, xdestino, ydestino);
                 }
-                if(pode_andar(&m, i, j+1) && ta_vazia(&m, i, j+1)){
+                if(movimentacao(&m, i, j+1)){
                     andando_mapa(&m,i, j, i, j + 1);
                     return;
                 }
@@ -52,7 +52,9 @@ void fantasma(){
 
 
 int acabou(){
-    return 0;
+    POSICAO posicao;
+    int heroi_mapa = encontra_mapa(&m, &posicao, HEROI);
+    return !heroi_mapa;
 }
 
 void move(char direcao){
@@ -67,8 +69,8 @@ void move(char direcao){
         default: return;
     }
 
-    if (!pode_andar(&m, proximox, proximoy)) return;
-    if (!ta_vazia(&m,proximox,proximoy)) return;
+    if (!movimentacao(&m, proximox, proximoy)) return;
+
 
     andando_mapa(&m, heroi.x, heroi.y, proximox, proximoy);
     heroi.x = proximox;

@@ -4,6 +4,7 @@
 #define BAIXO 's'
 #define DIREITA 'd'
 #define ESQUERDA 'a'
+#define BOMBA 'b'
 struct mapa{
     char** matriz;
     int linhas, colunas;
@@ -27,5 +28,6 @@ struct posicao{
 typedef struct posicao POSICAO;
 void fantasma();
 void move(char direcao);
+void colocar_objetivo(MAPA* m);
 int acabou();
 #endif

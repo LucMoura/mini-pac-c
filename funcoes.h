@@ -4,6 +4,7 @@
 #define VAZIO '.'
 #define PAREDE_LATERAL '|'
 #define PAREDE_HORIZONTAL '-'
+#define PILULA 'P'
 
 void imprime_mapa(MAPA* m);
 void libera_mapa(MAPA* m);

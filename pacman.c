@@ -5,6 +5,7 @@
 #include "funcoes.h"
 MAPA m;
 POSICAO heroi;
+int tem_pilula = 0;
 
 int direcao_fantasma(int xatual, int yatual, int* xdestino, int* ydestino){
     int opcoes[4][2]={
@@ -126,6 +127,7 @@ void move(char direcao){
     }
 
     if (!movimentacao(&m, HEROI ,proximox, proximoy)) return;
+    if (is_personagem(&m, PILULA, proximox, proximoy)) tem_pilula = 1;
 
 
     andando_mapa(&m, heroi.x, heroi.y, proximox, proximoy);
@@ -134,16 +136,22 @@ void move(char direcao){
 
 }
     
+void bomba(){
+    printf("KABUM!");
+    tem_pilula = 0;
+}
 
 int main(void){
     identifica_mapa(&m);
     encontra_mapa(&m, &heroi, HEROI);
     do
     {
+        printf("Tem pilula: %s\n", (tem_pilula ? "SIM" : "NÃO"));
         imprime_mapa(&m);
         char comando;
         scanf(" %c", &comando);
         move(comando);
+        if(comando == BOMBA) bomba();
         fantasma();
     } while (!acabou());
 

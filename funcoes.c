@@ -159,21 +159,4 @@ void imprime_mapa(MAPA* m){
     }
 }
 
-DIFICULDADE selecionar_dificuldade() {
-    int escolha;
-    printf("Selecione a dificuldade:\n");
-    printf("1 - Fácil\n");
-    printf("2 - Médio\n");
-    printf("3 - Difícil\n");
-    scanf("%d", &escolha);
-    
-    switch(escolha) {
-        case 1: return FACIL;
-        case 2: return MEDIO;
-        case 3: return DIFICIL;
-        default:
-            printf("Opção inválida! Selecionando a dificuldade média.\n");
-            return MEDIO;
-    }
-}
 

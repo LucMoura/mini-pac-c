@@ -148,6 +148,7 @@ void identifica_mapa(MAPA * m){
     fclose(f);
 }
 
+
 void imprime_mapa(MAPA* m){
         
    

@@ -26,24 +26,6 @@ int direcao_fantasma(int xatual, int yatual, int* xdestino, int* ydestino){
     }
     return 0;
 }
-void configurar_jogo(MAPA* m, DIFICULDADE dificuldade) {
-    switch (dificuldade) {
-        case FACIL:
-            m->linhas = 5;
-            m->colunas = 10;
-            break;
-        case MEDIO:
-            m->linhas = 7;
-            m->colunas = 15;
-            break;
-        case DIFICIL:
-            m->linhas = 10;
-            m->colunas = 20;
-            break;
-    }
-    gera_mapa(m);
-}
-
 void colocar_objetivo(MAPA* m){
     m->matriz[m->linhas -1][m->colunas -1] = '*';
 }
@@ -114,6 +96,21 @@ int acabou(){
     return !heroi_mapa;
 }
 
+void explode_bomba(){
+    for(int i = 1; i <=5; i++){
+        if(pode_andar(&m, heroi.x, heroi.y+1)){
+            if (!is_parede(&m, heroi.x, heroi.y))
+            {
+                break;;
+            }
+            
+            m.matriz[heroi.x][heroi.y-i] = VAZIO;
+            
+        }
+    }tem_pilula = 0;
+}
+
+
 void move(char direcao){
     int proximox = heroi.x;
     int proximoy = heroi.y;
@@ -136,10 +133,6 @@ void move(char direcao){
 
 }
     
-void bomba(){
-    printf("KABUM!");
-    tem_pilula = 0;
-}
 
 int main(void){
     identifica_mapa(&m);
@@ -151,7 +144,7 @@ int main(void){
         char comando;
         scanf(" %c", &comando);
         move(comando);
-        if(comando == BOMBA) bomba();
+        if(comando == BOMBA) explode_bomba();
         fantasma();
     } while (!acabou());
 

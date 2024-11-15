@@ -26,6 +26,8 @@ struct posicao{
     int x, y;
 };
 typedef struct posicao POSICAO;
+
+
 void fantasma();
 void move(char direcao);
 void colocar_objetivo(MAPA* m);

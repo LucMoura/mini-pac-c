@@ -147,17 +147,3 @@ void identifica_mapa(MAPA * m){
     }
     fclose(f);
 }
-
-
-void imprime_mapa(MAPA* m){
-        
-   
-    for(int i = 0; i < m->linhas; i++){
-        for (int j = 0; j < m->colunas; j++){
-            printf("%c", m->matriz[i][j]);
-        }
-        printf("\n");
-    }
-}
-
-

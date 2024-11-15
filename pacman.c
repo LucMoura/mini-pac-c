@@ -3,6 +3,7 @@
 #include <time.h>
 #include "pacman.h"
 #include "funcoes.h"
+#include "ui.h"
 MAPA m;
 POSICAO heroi;
 int tem_pilula = 0;
@@ -97,18 +98,27 @@ int acabou(){
 }
 
 void explode_bomba(){
-    for(int i = 1; i <=5; i++){
-        if(pode_andar(&m, heroi.x, heroi.y+1)){
-            if (!is_parede(&m, heroi.x, heroi.y))
-            {
-                break;;
-            }
-            
-            m.matriz[heroi.x][heroi.y-i] = VAZIO;
-            
-        }
-    }tem_pilula = 0;
+    if(!tem_pilula) return;
+    explode_bomba2(heroi.x, heroi.y, 0, 1, 3);
+    explode_bomba2(heroi.x, heroi.y, 0, -1, 3);
+    explode_bomba2(heroi.x, heroi.y, 1, 0, 3);
+    explode_bomba2(heroi.x, heroi.y, -1, 0, 3);
+    tem_pilula = 0;
 }
+
+void explode_bomba2(int x, int y, int somax, int somay, int qntd){
+    if(qntd == 0) return;
+
+    int novox = x + somax;
+    int novoy = y + somay;
+
+    if(!pode_andar(&m, novox, novoy)) return;
+    if(is_parede(&m, novox, novoy)) return;
+
+    m.matriz[novox][novoy] = VAZIO;
+    explode_bomba2(novox, novoy, somax, somay, qntd-1);
+}
+
 
 
 void move(char direcao){
@@ -124,7 +134,7 @@ void move(char direcao){
     }
 
     if (!movimentacao(&m, HEROI ,proximox, proximoy)) return;
-    if (is_personagem(&m, PILULA, proximox, proximoy)) tem_pilula = 1;
+    if (is_personagem(&m, PILULA, proximox, proximoy)) tem_pilula = 1 ;
 
 
     andando_mapa(&m, heroi.x, heroi.y, proximox, proximoy);
@@ -144,7 +154,7 @@ int main(void){
         char comando;
         scanf(" %c", &comando);
         move(comando);
-        if(comando == BOMBA) explode_bomba();
+        if(comando == BOMBA) explode_bomba(heroi.x, heroi.y, 4);
         fantasma();
     } while (!acabou());
 
